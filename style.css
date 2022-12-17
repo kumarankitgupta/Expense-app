@@ -1,0 +1,50 @@
+body{
+    background-color: #ecf1f4;
+}
+.extra{
+    background-color:#fff;
+    height:95vh;
+    overflow-y:auto;
+    width:375px;
+    margin-top: 20px;
+    border-radius: 15px;
+    padding-left: 1.5%;
+    padding-right: 1.5%;
+    
+}
+.plussymb{
+    font-size:48px;
+    color:#FF7000;
+    position: absolute;
+    bottom: 5%;
+    margin-left: 290px;
+}
+.inpbox{
+    position: absolute;
+    bottom: 5%;
+    display: none;
+}
+.hdatag{
+    padding: 2%;
+    border-left: 5px solid greenyellow ;
+    border-right: 5px solid greenyellow;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.hdatasr{
+    padding: 2%;
+    border-left: 5px solid #CD104D;  ;
+    border-right: 5px solid #CD104D; ;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.tg{
+    background-color: #fff;
+    color: greenyellow;
+    font-weight: bolder;
+}
+.tr{
+    background-color: #fff;
+    color:#CD104D;
+    font-weight: bolder;
+}
