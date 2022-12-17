@@ -6,6 +6,7 @@ var num = document.getElementById("num");
 var HistoryContainer = document.getElementById("HistoryContainer");
 var credit = document.getElementById("credit");
 var debit = document.getElementById("debit");
+var pbar = document.getElementById("pbar")
 var store = true;
 var counter = 1;
 var prevkey = Object.keys(localStorage);
@@ -33,10 +34,17 @@ function Appear(){
     inpbox.style.display = "none";
 }
 sbtn.addEventListener("click", function() {
+    var insert = true;
     var tdata = data.value;
     var tnum = num.value;
+    if(tdata.trim().length === 0 || tnum.trim().length === 0){
+        alert("Data And Value Should Not Be Empty");
+        insert = false;
+    }
+    if(insert){
     console.log(tdata + " " + tnum);
     createBox(tdata,tnum);
+    }
   });
 
   function createBox(tdata,tnum){
@@ -99,6 +107,7 @@ sbtn.addEventListener("click", function() {
       var d = parseInt(document.getElementById("debit").innerText);
       var r = c - d;
       document.getElementById("expense").innerText = r;
+      Setbar(c,d,r);
   }
   function deleteId(name){
     HistoryContainer.innerHTML = "";
@@ -106,5 +115,30 @@ sbtn.addEventListener("click", function() {
     prevkey = Object.keys(localStorage);
     credit.innerText = 0;
     debit.innerText = 0;
+    if(prevkey.length == 0){
+        document.getElementById("expense").innerText = 0;
+        pbar.setAttribute("style","width:0%;");
+    }
     Atfirst();
+  }
+  function Setbar(c,d,r){
+    if(r === 0){
+        pbar.setAttribute("style","width:0%;");
+    }
+    else if(c  > d){
+        console.log("Credit " + (r/c)*100);
+        pbar.setAttribute("style","width:"+(r/c)*100+"%;");
+        pbar.setAttribute("class","progress-bar bg-success");
+    }else{
+        console.log("Debit " + (r/d)*100);
+        pbar.setAttribute("style","width:"+(Math.abs(r)/d)*100+"%;");
+        pbar.setAttribute("class","progress-bar bg-danger");
+    }
+  }
+  function Validate(x){
+     if(x[0] === '-'||true){
+        if(isNaN(x.substring(1))){
+            num.value = "";
+        }
+     }
   }
