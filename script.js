@@ -10,17 +10,17 @@ var pbar = document.getElementById("pbar")
 var store = true;
 var counter = 1;
 var prevkey = Object.keys(localStorage);
+Atfirst();
 function Atfirst(){
     store = false;
-    prevkey.forEach((items)=>{
-        var nums = localStorage.getItem(items);
-        createBox(items,nums);
-    })
+    var arr = localStorage.getItem("transaction");
+    if(arr!=null){
+    arr = JSON.parse(arr);
+    for(let i = 0 ; i < arr.length ; i++){
+        createBox(arr[i].name,arr[i].val)
+    }}
     store = true;
 }
-Atfirst();
-
-
 function takeInputs(){
     pbtn.style.display = "none";
     inpbox.style.display = "block";
@@ -80,9 +80,25 @@ sbtn.addEventListener("click", function() {
     data.value = "";
     num.value = "";
     if(store){
-        localStorage.setItem(tdata,tnum);
+        StoreTheData(tdata,tnum);
     }
     counter++;
+  }
+  function StoreTheData(tdata,tnum){
+      var ob = {
+          name:tdata,
+          val:tnum
+      }
+      var x = localStorage.getItem("transaction");
+      if(x == null){
+          var arr =[];
+          arr.push(ob);
+        localStorage.setItem("transaction",JSON.stringify(arr));
+      }else{
+          arr = JSON.parse(x);
+          arr.push(ob);
+          localStorage.setItem("transaction",JSON.stringify(arr));
+      }
   }
   function changeCredit(tnum){
     var add = tnum;
@@ -111,11 +127,19 @@ sbtn.addEventListener("click", function() {
   }
   function deleteId(name){
     HistoryContainer.innerHTML = "";
-    localStorage.removeItem(name.innerText);
-    prevkey = Object.keys(localStorage);
+    var arr = localStorage.getItem('transaction');
+    arr = JSON.parse(arr);
+    console.log(arr);
+    for(let i = 0 ; i < arr.length ; i++){
+        if(arr[i].name === name.innerText){
+            arr.splice(i,1);
+            break;
+        }
+    }
+    localStorage.setItem("transaction",JSON.stringify(arr))
     credit.innerText = 0;
     debit.innerText = 0;
-    if(prevkey.length == 0){
+    if(arr.length == 0){
         document.getElementById("expense").innerText = 0;
         pbar.setAttribute("style","width:0%;");
     }
@@ -134,11 +158,4 @@ sbtn.addEventListener("click", function() {
         pbar.setAttribute("style","width:"+(Math.abs(r)/d)*100+"%;");
         pbar.setAttribute("class","progress-bar bg-danger");
     }
-  }
-  function Validate(x){
-     if(x[0] === '-'||true){
-        if(isNaN(x.substring(1))){
-            num.value = "";
-        }
-     }
   }
