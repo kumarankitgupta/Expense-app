@@ -42,7 +42,6 @@ sbtn.addEventListener("click", function() {
         insert = false;
     }
     if(insert){
-    console.log(tdata + " " + tnum);
     createBox(tdata,tnum);
     }
   });
@@ -105,7 +104,6 @@ sbtn.addEventListener("click", function() {
     add = parseInt(tnum);
     var x = credit.innerText;
     x = parseInt(x);
-    console.log(x+add);
     credit.innerText = x + add;
     HandleExpense();
   }
@@ -114,7 +112,6 @@ sbtn.addEventListener("click", function() {
     add = parseInt(tnum);
     var x = debit.innerText;
     x = parseInt(x);
-    console.log(x+add);
     debit.innerText = x + add;
     HandleExpense();
   }
@@ -129,7 +126,6 @@ sbtn.addEventListener("click", function() {
     HistoryContainer.innerHTML = "";
     var arr = localStorage.getItem('transaction');
     arr = JSON.parse(arr);
-    console.log(arr);
     for(let i = 0 ; i < arr.length ; i++){
         if(arr[i].name === name.innerText){
             arr.splice(i,1);
@@ -150,11 +146,9 @@ sbtn.addEventListener("click", function() {
         pbar.setAttribute("style","width:0%;");
     }
     else if(c  > d){
-        console.log("Credit " + (r/c)*100);
         pbar.setAttribute("style","width:"+(r/c)*100+"%;");
         pbar.setAttribute("class","progress-bar bg-success");
     }else{
-        console.log("Debit " + (r/d)*100);
         pbar.setAttribute("style","width:"+(Math.abs(r)/d)*100+"%;");
         pbar.setAttribute("class","progress-bar bg-danger");
     }
